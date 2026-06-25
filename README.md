@@ -30,7 +30,7 @@ That's genuinely it. No accounts, no setup beyond what's above.
 
 ---
 
-## Under the hood (if you're curious)
+## Under the hood 
 
 The model trains on a dataset of ~285,000 real credit card transactions from Kaggle. Most of the features (`V1` through `V28`) are anonymized using PCA — the original values are hidden for privacy reasons — but `Amount` and `Time` are left raw.
 
@@ -70,7 +70,7 @@ Any feature you don't include just defaults to `0`. You'll get back something li
 
 ---
 
-## Things worth knowing
+## 
 
 The dataset is pretty lopsided — only about 0.17% of transactions are actually fraud. So the model has seen way more legitimate transactions than fraudulent ones, which is realistic but means it can be overconfident. A 99% confidence score doesn't mean it's infallible.
 
