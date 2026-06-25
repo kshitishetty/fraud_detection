@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fraud Detection</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Credit Card Fraud Predictor</h1>
+  <form id="predictForm">
+    <label for="Amount">Transaction Amount:</label>
+    <input type="number" step="0.01" id="Amount" required><br>
+    <label for="V1">V1:</label>
+    <input type="number" step="any" id="V1" required><br>
+    <label for="V2">V2:</label>
+    <input type="number" step="any" id="V2" required><br>
+    <label for="V3">V3:</label>
+    <input type="number" step="any" id="V3" required><br>
+    <button type="submit">Predict Fraud</button>
+  </form>
+  <div id="result"></div>
+  <script>
+    document.getElementById("predictForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const data = {
+        Time: 0,
+        V1: parseFloat(document.getElementById("V1").value),
+        V2: parseFloat(document.getElementById("V2").value),
+        V3: parseFloat(document.getElementById("V3").value),
+        V4: 0, V5: 0, V6: 0, V7: 0, V8: 0, V9: 0, V10: 0,
+        V11: 0, V12: 0, V13: 0, V14: 0, V15: 0, V16: 0, V17: 0, V18: 0, V19: 0,
+        V20: 0, V21: 0, V22: 0, V23: 0, V24: 0, V25: 0, V26: 0, V27: 0, V28: 0,
+        Amount: parseFloat(document.getElementById("Amount").value)
+      };
+      const res = await fetch("http://127.0.0.1:5000/predict", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+      const result = await res.json();
+      document.getElementById("result").innerHTML = `
+        <h2>Result</h2>
+        <p><strong>${result.fraud ? "🚨 Fraudulent Transaction" : "✅ Legitimate Transaction"}</strong></p>
+        <p>Confidence: ${result.probability}%</p>
+      `;
+    });
+  </script>
+</body>
+</html>
